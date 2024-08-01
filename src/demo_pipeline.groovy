@@ -1,11 +1,7 @@
 @Library("shared-lib") _
 
 pipeline{
-    agent{
-        node {
-            label none
-        }
-    }
+    agent any
 
     stages{
         stage("test stage"){
