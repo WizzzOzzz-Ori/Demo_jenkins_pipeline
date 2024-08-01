@@ -11,7 +11,7 @@ pipeline{
         stage("test stage"){
             steps{
                 script{
-                    echo "hi"
+                    test_sl()
                 }
             }
         }
