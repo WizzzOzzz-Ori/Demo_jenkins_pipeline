@@ -9,10 +9,10 @@ pipeline{
     // }
 
     stages{
-        stage("checks"){
+        stage("clean Workspace"){
             steps{
                 script{
-                    sh("ls -la")
+                    cleanWs()
                 }
             }
         }
