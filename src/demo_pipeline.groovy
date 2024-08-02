@@ -1,11 +1,7 @@
 @Library("shared-lib") _
 
 pipeline{
-    agent{
-        node {
-            label "kubernetes"
-        }
-    }
+    agent any
 
     stages{
         stage("git checkout"){
