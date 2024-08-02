@@ -1,12 +1,32 @@
 @Library("shared-lib") _
 
 pipeline{
-    agent any
-    // agent {
-    //     node {
-    //         label "master"
-    //     }
-    // }
+    // agent any
+    agent {
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins/label: jenkins-wizzz-jenkins-agent
+spec:
+  containers:
+  - name: python
+    image: python:3.9-slim
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: workspace-volume
+      mountPath: /home/jenkins/agent
+  volumes:
+  - name: workspace-volume
+    emptyDir: {}
+"""
+        }
+    }
+    
 
     stages{
         stage("clean Workspace"){
