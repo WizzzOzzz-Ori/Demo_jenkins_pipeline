@@ -20,14 +20,6 @@ pipeline{
             }
         }
 
-        // stage ("install requirements"){
-        //     steps{
-        //         script{
-        //             sh "pip install --upgrade pip"
-        //         }
-        //     }
-        // }
-
         stage("git checkout"){
             steps{
                 script{
@@ -36,20 +28,11 @@ pipeline{
             }
         }
 
-        stage("pip install"){
-            steps{
-                container('python') {
-                    script{
-                        installRequirements()
-                    }
-                }
-            }
-        }
-
         stage("build docker"){
             steps{
                 container('docker') {
                     script{
+                        sh "ls -l /var/run/docker.sock"
                         dockerBuild()
                     }
                 }

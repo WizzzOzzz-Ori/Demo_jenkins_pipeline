@@ -5,16 +5,8 @@ metadata:
     jenkins/label: jenkins-wizzz-jenkins-agent
 spec:
   containers:
-  - name: python
-    image: python:3.9-slim
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - name: workspace-volume
-      mountPath: /home/jenkins/agent
   - name: docker
-    image: docker:latest
+    image: docker:20.10.7-dind
     command:
     - cat
     securityContext:
