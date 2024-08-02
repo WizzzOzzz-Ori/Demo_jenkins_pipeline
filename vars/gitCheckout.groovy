@@ -30,6 +30,7 @@ def call(gitUrl, branchOrTag = "develop", folderName = "./"){
     withCredentials([sshUserPrivateKey(credentialsId: credentialsId, keyFileVariable: 'GIT_SSH_KEY')]){
         dir (folderName){
             def hostToKnow = gitUrl.split["@"][1].split[":"][0]
+            consoleLog.Info(hostToKnow)
             sh """
                 mkdir ~/.ssh/ && ssh-keyscan -t rsa ${hostToKnow} > ~/.ssh/known_hosts
                 eval "\$(ssh-agent -s)"
