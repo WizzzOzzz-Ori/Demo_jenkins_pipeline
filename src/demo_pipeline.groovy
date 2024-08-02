@@ -37,13 +37,13 @@ spec:
             }
         }
 
-        stage ("install requirements"){
-            steps{
-                script{
-                    sh "pip install --upgrade pip"
-                }
-            }
-        }
+        // stage ("install requirements"){
+        //     steps{
+        //         script{
+        //             sh "pip install --upgrade pip"
+        //         }
+        //     }
+        // }
 
         stage("git checkout"){
             steps{
@@ -55,8 +55,10 @@ spec:
 
         stage("pip install"){
             steps{
-                script{
-                    sh "pip install -r requirements.txt"
+                container('python') {
+                    script{
+                        sh "pip install -r requirements.txt"
+                    }
                 }
             }
         }
