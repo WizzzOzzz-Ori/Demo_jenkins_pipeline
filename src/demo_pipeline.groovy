@@ -12,7 +12,7 @@ pipeline{
             }
         }
 
-        stage("git checkout"){
+        stage("pip install"){
             steps{
                 script{
                     sh "pip install -r requirements.txt"
