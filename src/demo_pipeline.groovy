@@ -12,7 +12,7 @@ pipeline{
         stage("clean Workspace"){
             steps{
                 script{
-                    sh "rm -rf * .*"
+                    sh "rm -rf * .git"
                 }
             }
         }
