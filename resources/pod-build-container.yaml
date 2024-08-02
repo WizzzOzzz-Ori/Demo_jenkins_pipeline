@@ -17,6 +17,8 @@ spec:
     image: docker:latest
     command:
     - cat
+    securityContext:
+      privileged: true
     tty: true
     volumeMounts:
     - name: workspace-volume
