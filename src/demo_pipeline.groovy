@@ -37,13 +37,14 @@ spec:
             }
         }
 
-        // stage ("install requirements"){
-        //     steps{
-        //         script{
-        //             sh "apt-get update && apt-get install python3 python3-pip"
-        //         }
-        //     }
-        // }
+        stage ("install requirements"){
+            steps{
+                script{
+                    sh "ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts"
+                }
+            }
+        }
+
         stage("git checkout"){
             steps{
                 script{
