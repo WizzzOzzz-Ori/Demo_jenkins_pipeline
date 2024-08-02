@@ -40,7 +40,7 @@ spec:
         stage ("install requirements"){
             steps{
                 script{
-                    sh "ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts"
+                    sh "mkdir ~/.ssh/ && ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts"
                 }
             }
         }
