@@ -13,7 +13,7 @@ metadata:
 spec:
   containers:
   - name: python
-    image: python:3.13-rc-bullseye
+    image: python:bullseye
     command:
     - cat
     tty: true
