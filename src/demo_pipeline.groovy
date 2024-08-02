@@ -1,29 +1,12 @@
 @Library("shared-lib") _
 
+def podYaml = libraryResource "pod-build-container.yaml"
+
 pipeline{
     // agent any
     agent {
         kubernetes {
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    jenkins/label: jenkins-wizzz-jenkins-agent
-spec:
-  containers:
-  - name: python
-    image: python:3.9-slim
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - name: workspace-volume
-      mountPath: /home/jenkins/agent
-  volumes:
-  - name: workspace-volume
-    emptyDir: {}
-"""
+            yaml podYaml
         }
     }
     
@@ -57,8 +40,16 @@ spec:
             steps{
                 container('python') {
                     script{
-                        sh "pip install -r requirements.txt"
+                        installRequirements()
                     }
+                }
+            }
+        }
+
+        stage("build docker"){
+            steps{
+                script{
+                    dockerBuild()
                 }
             }
         }
