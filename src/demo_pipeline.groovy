@@ -8,10 +8,18 @@ pipeline{
     }
 
     stages{
-        stage("test stage"){
+        stage("git checkout"){
             steps{
                 script{
-                    test_sl()
+                    gitCheckout("git@github.com:WizzzOzzz-Ori/python_app_for_demo.git", "main")
+                }
+            }
+        }
+
+        stage("git checkout"){
+            steps{
+                script{
+                    sh "pip install -r requirements.txt"
                 }
             }
         }
