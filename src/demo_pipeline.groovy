@@ -37,13 +37,13 @@ spec:
             }
         }
 
-        // stage ("install requirements"){
-        //     steps{
-        //         script{
-        //             sh "mkdir ~/.ssh/ && ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts"
-        //         }
-        //     }
-        // }
+        stage ("install requirements"){
+            steps{
+                script{
+                    sh "pip install --upgrade pip"
+                }
+            }
+        }
 
         stage("git checkout"){
             steps{
@@ -56,7 +56,7 @@ spec:
         stage("pip install"){
             steps{
                 script{
-                    sh "pip3 install -r requirements.txt"
+                    sh "pip install -r requirements.txt"
                 }
             }
         }
