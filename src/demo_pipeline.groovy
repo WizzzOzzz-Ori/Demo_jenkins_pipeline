@@ -16,6 +16,14 @@ pipeline{
                 }
             }
         }
+
+        stage ("install requirements"){
+            steps{
+                script{
+                    sh "apt-get update && apt-get install python3 python3-pip"
+                }
+            }
+        }
         stage("git checkout"){
             steps{
                 script{
