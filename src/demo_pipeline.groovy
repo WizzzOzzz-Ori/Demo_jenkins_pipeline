@@ -32,7 +32,6 @@ pipeline{
             steps{
                 container('docker') {
                     script{
-                        sh "ls -l /var/run/docker.sock"
                         dockerBuild()
                     }
                 }
