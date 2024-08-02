@@ -48,8 +48,10 @@ pipeline{
 
         stage("build docker"){
             steps{
-                script{
-                    dockerBuild()
+                container('docker') {
+                    script{
+                        dockerBuild()
+                    }
                 }
             }
         }
