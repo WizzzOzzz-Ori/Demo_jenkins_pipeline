@@ -1,10 +1,9 @@
-def call(def tagName="${env.JOB_BASE_NAME.toLowerCase()}_${env.BUILD_NUMBER}"){
-    sh """
-    dockerd &
-    while (! docker info > /dev/null 2>&1); do
-        echo "Waiting for Docker daemon to start..."
-        sleep 1
-    done
-    """
-    sh "docker build . -t ${tagName}"
+def call(){
+    validateDockerServiceIsRunning()
+    def tempTag = ""
+    withDockerRegistry(credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/') {
+        tempTag = "${DOCKERHUB_USERNAME}/${env.JOB_BASE_NAME}_${env.BUILD_NUMBER}"
+    }
+    sh "docker build -t ${tempTag}."
+    return tempTag
 }
