@@ -11,9 +11,6 @@ pipeline{
             yaml podYaml
         }
     }
-    environment {
-        DOCKER_REGISTRY_USERNAME = credentials('dockerhub-credentials').username
-    }
     
 
     stages{
@@ -34,6 +31,9 @@ pipeline{
         }
 
         stage("build docker"){
+            environment {
+                DOCKER_REGISTRY_USERNAME = credentials('dockerhub-credentials').username
+            }
             steps{
                 container('docker') {
                     script{
@@ -44,6 +44,9 @@ pipeline{
         }
 
         stage("Push Docker Image") {
+            environment {
+                DOCKER_REGISTRY_USERNAME = credentials('dockerhub-credentials').username
+            }
             steps {
                 container('docker') {
                     script {
