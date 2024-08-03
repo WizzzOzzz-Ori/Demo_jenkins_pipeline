@@ -44,9 +44,7 @@ pipeline{
                 container('docker') {
                     script {
                         withDockerRegistry(credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/') {
-                            withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                                sh "docker push ${DOCKERHUB_USERNAME}/${dockerTag}"
-                            }
+                            sh "docker push ${dockerTag}"
                         }
                     }
                 }
