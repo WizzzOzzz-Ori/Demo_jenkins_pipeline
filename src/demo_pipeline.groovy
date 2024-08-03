@@ -5,7 +5,6 @@ def podYaml = libraryResource "pod-build-container.yaml"
 def dockerTag = ""
 
 pipeline{
-    // agent any
     agent {
         kubernetes {
             yaml podYaml
@@ -31,9 +30,6 @@ pipeline{
         }
 
         stage("build docker"){
-            environment {
-                DOCKER_REGISTRY_USERNAME = credentials('dockerhub-credentials').username
-            }
             steps{
                 container('docker') {
                     script{
@@ -44,14 +40,13 @@ pipeline{
         }
 
         stage("Push Docker Image") {
-            environment {
-                DOCKER_REGISTRY_USERNAME = credentials('dockerhub-credentials').username
-            }
             steps {
                 container('docker') {
                     script {
                         withDockerRegistry(credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/') {
-                            sh "docker push ${DOCKERHUB_USERNAME}/${dockerTag}"
+                            withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
+                                sh "docker push ${DOCKERHUB_USERNAME}/${dockerTag}"
+                            }
                         }
                     }
                 }
