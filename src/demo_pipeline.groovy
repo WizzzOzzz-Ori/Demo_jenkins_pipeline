@@ -11,6 +11,9 @@ pipeline{
             yaml podYaml
         }
     }
+    environment {
+        DOCKER_REGISTRY_USERNAME = credentials('dockerhub-credentials').username
+    }
     
 
     stages{
