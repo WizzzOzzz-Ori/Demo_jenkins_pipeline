@@ -15,6 +15,14 @@ pipeline{
     
 
     stages{
+        stage("clean Workspace"){
+            steps{
+                script{
+                    sh "rm -rf * .git"
+                }
+            }
+        }
+        
         stage("git checkout"){
             steps{
                 container('jnlp') {
