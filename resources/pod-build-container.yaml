@@ -12,9 +12,9 @@ spec:
     securityContext:
       privileged: true
     tty: true
-    volumeMounts:
-    - name: workspace-volume
-      mountPath: /home/jenkins/agent
-  volumes:
-  - name: workspace-volume
-    emptyDir: {}
+    # volumeMounts:
+    # - name: workspace-volume
+    #   mountPath: /home/jenkins/agent
+  # volumes:
+  # - name: workspace-volume
+  #   emptyDir: {}
