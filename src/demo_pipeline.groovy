@@ -8,6 +8,7 @@ pipeline{
     agent {
         kubernetes {
             yaml podYaml
+            defaultContainer 'docker'
         }
     }
     
@@ -23,30 +24,36 @@ pipeline{
 
         stage("git checkout"){
             steps{
-                script{
-                    gitCheckout("git@github.com:WizzzOzzz-Ori/python_app_for_demo.git", "main")
+                container("jnlp"){
+                    script{
+                        gitCheckout("git@github.com:WizzzOzzz-Ori/python_app_for_demo.git", "main")
+                    }
                 }
             }
         }
 
         stage("build docker"){
             steps{
-                container('docker') {
-                    script{
-                        dockerTag = dockerBuild()
-                    }
+                script{
+                    dockerTag = dockerBuild()
                 }
             }
         }
 
         stage("Push Docker Image") {
             steps {
-                container('docker') {
-                    script {
-                        withDockerRegistry(credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/') {
-                            sh "docker push ${dockerTag}"
-                        }
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub-credentials', url: 'https://index.docker.io/v1/') {
+                        sh "docker push ${dockerTag}"
                     }
+                }
+            }
+        }
+
+        stage("Deploy container"){
+            steps{
+                script{
+
                 }
             }
         }
