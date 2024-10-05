@@ -22,7 +22,7 @@ pipeline{
                 }
             }
         }
-        
+
         stage("git checkout"){
             steps{
                 container('jnlp') {
@@ -40,8 +40,8 @@ pipeline{
                     imageName = versionsYaml.image_name
                     imageVersion = versionsYaml.image_version
                     def appPodYaml = readFile "kubernetes/app_pod.yaml"
-                    appPodYaml = envsubst(appPodYaml, [image_name: imageName, image_version: imageVersion])
-                    writeFile file: "kubernetes/app_pod.yaml", text: appPodYaml
+                    appPodYaml = envsubst("${appPodYaml}", [image_name: imageName, image_version: imageVersion])
+                    writeFile file: "kubernetes/app_pod.yaml", text: "${appPodYaml}"
                 }
             }
         }
