@@ -49,13 +49,5 @@ pipeline{
                 }
             }
         }
-
-        stage("Deploy container"){
-            steps{
-                script{
-                    echo hi
-                }
-            }
-        }
     }
 }
