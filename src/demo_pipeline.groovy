@@ -14,17 +14,17 @@ pipeline{
     
 
     stages{
-        stage("clean Workspace"){
-            steps{
-                script{
-                    sh "rm -rf * .git"
-                }
-            }
-        }
+        // stage("clean Workspace"){
+        //     steps{
+        //         script{
+        //             sh "rm -rf * .git"
+        //         }
+        //     }
+        // }
 
         stage("git checkout"){
             steps{
-                container("jnlp"){
+                container('jnlp') {
                     script{
                         gitCheckout("git@github.com:WizzzOzzz-Ori/python_app_for_demo.git", "main")
                     }
