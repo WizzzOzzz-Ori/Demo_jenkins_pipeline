@@ -36,12 +36,13 @@ pipeline{
         stage("Gather metadata"){
             steps{
                 script{
+                    sleep 60*2
                     def versionsYaml = readYaml file: "kubernetes/versions.yaml"
                     imageName = versionsYaml.image_name
                     imageVersion = versionsYaml.image_version
-                    def appPodYaml = readFile "kubernetes/app_pod.yaml"
-                    appPodYaml = envsubst("${appPodYaml}", [image_name: imageName, image_version: imageVersion])
-                    writeFile file: "kubernetes/app_pod.yaml", text: "${appPodYaml}"
+                    def appPodYaml = "\"${readFile "kubernetes/app_pod.yaml"}\""
+                    appPodYaml = envsubst(appPodYaml, [image_name: imageName, image_version: imageVersion])
+                    writeFile file: "kubernetes/app_pod.yaml", text: appPodYaml
                 }
             }
         }
