@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
   - name: docker
-    image: python:3.13-rc-bookworm⁠
+    image: python:slim-bookworm
     command:
     - cat
     securityContext:
