@@ -31,9 +31,9 @@ pipeline{
                     def versionsYaml = readYaml file: "kubernetes/versions.yaml"
                     imageName = versionsYaml.image_name
                     imageVersion = versionsYaml.image_version
-                    def podYaml = readFile "kubernetes/app_pod.yaml"
-                    podYaml = envsubst(podYaml, [image_name: imageName, image_version: imageVersion])
-                    writeFile file: "kubernetes/app_pod.yaml", text: podYaml
+                    def appPodYaml = readFile "kubernetes/app_pod.yaml"
+                    appPodYaml = envsubst(appPodYaml, [image_name: imageName, image_version: imageVersion])
+                    writeFile file: "kubernetes/app_pod.yaml", text: appPodYaml
                 }
             }
         }
