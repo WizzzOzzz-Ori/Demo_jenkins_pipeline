@@ -36,10 +36,10 @@ pipeline{
         stage("Gather metadata"){
             steps{
                 script{
-                    sleep 60*2
                     def versionsYaml = readYaml file: "kubernetes/versions.yaml"
-                    imageName = versionsYaml.image_name
-                    imageVersion = versionsYaml.image_version
+                    imageName = versionsYaml.app_py.image_name
+                    imageVersion = versionsYaml.app_py.image_version
+                    echo "imageName ${imageName}\nimageVersion ${imageVersion}"
                     def appPodYaml = "\"${readFile "kubernetes/app_pod.yaml"}\""
                     appPodYaml = envsubst(appPodYaml, [image_name: imageName, image_version: imageVersion])
                     writeFile file: "kubernetes/app_pod.yaml", text: appPodYaml
@@ -49,8 +49,13 @@ pipeline{
 
         stage("Deploy pod"){
             steps{
-                script{
-                    sh "cat kubernetes/app_pod.yaml"
+                container("kubectl"){
+                    script{
+                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'kubeconfig')]){
+                            sh "kubectl apply -f kubernetes/app_pod.yaml --kubeconfig ${kubeconfig}"
+                            sh "kubectl apply -f kubernetes/app_service.yaml --kubeconfig ${kubeconfig}"
+                        }
+                    }
                 }
             }
         }
