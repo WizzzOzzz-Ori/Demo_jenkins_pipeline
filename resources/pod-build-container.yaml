@@ -13,6 +13,13 @@ spec:
     securityContext:
       privileged: true
     tty: true
+    resources:
+      requests:
+        memory: "2Gi"  # Minimum memory this container is guaranteed
+        cpu: "1000m"   # Minimum CPU this container is guaranteed (1000m = 1 CPU core)
+      limits:
+        memory: "4Gi"  # Maximum memory the container can use
+        cpu: "2000m"
   - name: kubectl
     image: lachlanevenson/k8s-kubectl:latest
     command:
