@@ -12,6 +12,9 @@ pipeline{
         }
     }
     
+    options {
+        skipDefaultCheckout true
+    }
 
     stages{
         stage("clean Workspace"){
