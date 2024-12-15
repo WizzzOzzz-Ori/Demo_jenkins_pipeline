@@ -4,7 +4,7 @@ def call(){
         tempTag = "${DOCKERHUB_USERNAME}/${env.JOB_BASE_NAME.toLowerCase()}:${env.BUILD_NUMBER}"
     }
     withEnv(["DOCKER_BUILDKIT=0"]){
-        // validateDockerServiceIsRunning()
+        validateDockerServiceIsRunning()
         sh "docker build -t ${tempTag} ."
     }
     return tempTag
