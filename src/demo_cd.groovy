@@ -9,7 +9,7 @@ pipeline{
     agent {
         kubernetes {
             yaml podYaml
-            defaultContainer 'docker'
+            defaultContainer 'kubectl'
         }
     }
     
