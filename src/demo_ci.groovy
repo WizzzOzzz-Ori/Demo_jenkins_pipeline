@@ -21,7 +21,14 @@ pipeline{
             steps{
                 container('jnlp') {
                     script{
-                        gitCheckout("git@github.com:WizzzOzzz-Ori/python_app_for_demo.git", "main")
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [[name: "main"]],
+                            userRemoteConfigs: [[
+                                url: "git@github.com:WizzzOzzz-Ori/python_app_for_demo.git",
+                                credentialsId: "github-ssh-key"
+                            ]]
+                        ])
                     }
                 }
             }
