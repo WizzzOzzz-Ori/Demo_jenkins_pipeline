@@ -44,12 +44,10 @@ pipeline{
 
         stage("Deploy pod"){
             steps{
-                container("kubectl"){
-                    script{
-                        withCredentials([file(credentialsId: 'kubeconfig', variable: 'kubeconfig')]){
-                            sh "kubectl apply -f kubernetes/app_pod.yaml --kubeconfig ${kubeconfig}"
-                            sh "kubectl apply -f kubernetes/app_service.yaml --kubeconfig ${kubeconfig}"
-                        }
+                script{
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'kubeconfig')]){
+                        sh "kubectl apply -f kubernetes/app_pod.yaml --kubeconfig ${kubeconfig}"
+                        sh "kubectl apply -f kubernetes/app_service.yaml --kubeconfig ${kubeconfig}"
                     }
                 }
             }
